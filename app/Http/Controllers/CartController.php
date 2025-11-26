@@ -44,13 +44,33 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
+        $quantity = $request->quantity;
         $cart = session()->get('cart',[]);
 
-        if(isset($cart[$product->id])){
-            $cart[$product->id]['quantity'] = $request->quantity;
-            session()->put('cart',$cart);
+        if (! isset($cart[$product->id])) {
+            return redirect()->back()->with('error', 'Item not found in cart.');
         }
 
+        // Product out of stock
+        
+        if($product->stock <= 0){
+            unset($cart[$product->id]);
+            session()->put('cart',$cart);
+            return redirect()->back()->with('error','Product is out of stock');
+        }
+
+        // Quantity exceeding available stock
+
+        if($quantity > $request->stock){
+            $cart[$product->id]['quantity'] = $product->stock;
+            session()->put('cart',$cart);
+            return redirect()->back()->with('warning','Quantity exceeding available stock ({$product->stock}).');
+        }
+
+        // Normal update
+
+        $cart[$product->id]['quantity'] = $quantity;
+        session()->put('cart',$cart);
         return redirect()->back()->with('success','Cart updated');
     }
 
