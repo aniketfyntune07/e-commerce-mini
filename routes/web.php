@@ -5,6 +5,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 
+
+
 // Shop
 Route::get('/', [ProductController::class, 'shop'])->name('shop.index');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('shop.show');

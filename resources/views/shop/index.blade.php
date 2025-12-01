@@ -8,7 +8,10 @@
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 @if($product->image)
-                    <img src="{{ asset('storage/'.$product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                    <div class="product-image-box">
+    <img src="{{ asset('storage/'.$product->image) }}" alt="{{ $product->name }}">
+</div>
+
                 @endif
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ $product->name }}</h5>

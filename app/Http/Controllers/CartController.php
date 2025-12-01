@@ -64,7 +64,7 @@ class CartController extends Controller
         if($quantity > $request->stock){
             $cart[$product->id]['quantity'] = $product->stock;
             session()->put('cart',$cart);
-            return redirect()->back()->with('warning','Quantity exceeding available stock ({$product->stock}).');
+            return redirect()->back()->with('error','Quantity exceeding available stock ({$product->stock}).');
         }
 
         // Normal update

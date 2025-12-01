@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <title>Mini E-Commerce</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+.product-image-box {
+    width: 100%;
+    height: 220px;   /* choose the height you want */
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+    border-radius: 6px;
+}
+
+.product-image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* show full image, no cut */
+}
+
+</style>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
