@@ -6,15 +6,24 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\StripeWebhookController;
 
 // Shop
 Route::get('/', [ProductController::class, 'shop'])->name('shop.index');
 Route::get('/product/{product}', [ProductController::class, 'show'])->name('shop.show');
 
-// Admin Product CRUD (simple, no auth)
-Route::prefix('admin')->group(function () {
+/* ADMIN PROTECTED AREA */
+Route::middleware(['admin'])->prefix('admin')->group(function () {
+
+    // Real Admin Dashboard
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
+
+    // Admin Product CRUD
     Route::resource('products', ProductController::class)->names('admin.products');
 });
+
 
 // Cart
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
@@ -57,3 +66,7 @@ Route::middleware(['admin'])->group(function () {
 
     // admin product CRUD already exists
 });
+
+
+// Stripe Webhook (no auth)
+Route::post('/stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
