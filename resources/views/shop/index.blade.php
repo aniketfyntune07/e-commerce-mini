@@ -15,7 +15,7 @@
                 @endif
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ $product->name }}</h5>
-                    <p class="card-text">${{ number_format($product->price, 2) }}</p>
+                    <p class="card-text">Rs. {{ number_format($product->price, 2) }}</p>
                     <a href="{{ route('shop.show', $product) }}" class="btn btn-sm btn-outline-primary mt-auto">View</a>
                     <form action="{{ route('cart.add', $product) }}" method="POST" class="mt-2">
                         @csrf

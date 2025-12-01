@@ -29,16 +29,44 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
         <a class="navbar-brand" href="{{ route('shop.index') }}">Mini Shop</a>
-        <div>
-            <a href="{{ route('cart.index') }}" class="btn btn-outline-light btn-sm">
+
+        <div class="d-flex align-items-center">
+
+            <!-- Cart -->
+            <a href="{{ route('cart.index') }}" class="btn btn-outline-light btn-sm me-2">
                 Cart ({{ count(session('cart', [])) }})
             </a>
-            <a href="{{ route('admin.products.index') }}" class="btn btn-outline-light btn-sm ms-2">
-                Admin
+
+            <!-- Admin Login -->
+            <a href="{{ route('admin.login') }}" class="btn btn-outline-warning btn-sm me-2">
+                Admin Login
             </a>
+
+            @guest
+                <!-- User Login -->
+                <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm me-2">
+                    Login
+                </a>
+
+                <!-- User Register -->
+                <a href="{{ route('register') }}" class="btn btn-light btn-sm">
+                    Register
+                </a>
+            @else
+                <!-- Logged-in user -->
+                <span class="text-white me-2">
+                    Hello, {{ Auth::user()->name }}
+                </span>
+
+                <a href="{{ route('logout') }}" class="btn btn-danger btn-sm">
+                    Logout
+                </a>
+            @endguest
+
         </div>
     </div>
 </nav>
+
 
 <div class="container">
     @if(session('success'))
