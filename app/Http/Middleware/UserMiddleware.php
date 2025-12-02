@@ -4,23 +4,25 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Symfony\Component\HttpFoundation\Response;
 
 class UserMiddleware
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * Prevent admins from entering user-only pages.
+     * Redirect guests to login.
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || Auth::user()->role !== 'user') {
+        // Guests -> let auth handle or redirect to login
+        if (! auth()->check()) {
             return redirect()->route('login');
+        }
+
+        // Admins -> redirect to admin dashboard (avoid letting them stay on user pages)
+        if (auth()->user()->isAdmin()) {
+            return redirect()->route('admin.dashboard');
         }
 
         return $next($request);
     }
-
-    }
+}

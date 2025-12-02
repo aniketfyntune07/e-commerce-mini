@@ -13,28 +13,28 @@ class AdminAuthController extends Controller
     }
 
     public function login(Request $request)
-{
-    // Validate input
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
+    {
+        // Validate input
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-    // Prepare credentials
-    $credentials = $request->only('email', 'password');
+        // Prepare credentials
+        $credentials = $request->only('email', 'password');
 
-    // Attempt authentication
-    if (Auth::attempt($credentials)) {
-        if (Auth::user()->role !== 'admin') {
-            Auth::logout();
-            return back()->withErrors(['email' => 'You are not Admin']);
+        // Attempt authentication
+        if (Auth::attempt($credentials)) {
+            if (Auth::user()->role !== 'admin') {
+                Auth::logout();
+                return back()->withErrors(['email' => 'You are not Admin']);
+            }
+
+            return redirect()->route('admin.dashboard');
         }
 
-        return redirect()->route('admin.dashboard');
+        return back()->withErrors(['email' => 'Invalid Admin Credentials']);
     }
-
-    return back()->withErrors(['email' => 'Invalid Admin Credentials']);
-}
 
     public function logout()
     {
