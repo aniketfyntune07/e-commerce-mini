@@ -29,10 +29,10 @@
 
         <!-- Orders (Optional) -->
         <div class="col-md-4">
-            <a href="#" class="text-decoration-none">
+            <a href="{{ route('admin.orders.index') }}" class="text-decoration-none">
                 <div class="card shadow-sm p-4 h-100">
                     <h4 class="mb-2">Orders</h4>
-                    <p class="text-muted">Manage customer orders (coming soon).</p>
+                    <p class="text-muted">Manage customer orders.</p>
                 </div>
             </a>
         </div>

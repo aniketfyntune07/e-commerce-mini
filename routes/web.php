@@ -41,6 +41,13 @@ Route::middleware(['admin'])->prefix('admin')->group(function () {
 
     // Admin Product CRUD
     Route::resource('products', ProductController::class)->names('admin.products');
+
+    // Admin Orders
+    Route::get('/orders', [\App\Http\Controllers\AdminOrderController::class, 'index'])
+        ->name('admin.orders.index');
+
+    Route::get('/orders/{order}', [\App\Http\Controllers\AdminOrderController::class, 'show'])
+        ->name('admin.orders.show');
 });
 
 /*
