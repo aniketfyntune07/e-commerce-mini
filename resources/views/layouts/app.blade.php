@@ -33,35 +33,33 @@
 
     @if (!in_array(Request::route()->getName(), ['login', 'register']))
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+            
             <div class="container">
                 @auth
                 @if(auth()->user()->isAdmin())
                 <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Mini Shop</a>
                 @endif
-                
+                @endauth
+                @auth
                 @if(!auth()->user()->isAdmin())
                 <a class="navbar-brand" href="{{ route('shop.index') }}">Mini Shop</a>
                 @endif
-                 
+                 @endauth
                 <div class="d-flex align-items-center">
+                    @auth
                     @if(!Auth()->User()->isAdmin())
                     <!-- Cart -->
                     <a href="{{ route('cart.index') }}" class="btn btn-outline-light btn-sm me-2">
                         Cart ({{ count(session('cart', [])) }})
                     </a>
                     @endif
+                    @endauth
 
                     <!-- Admin Login -->
                     <!-- <a href="{{ route('admin.login') }}" class="btn btn-outline-warning btn-sm me-2">
                         Admin Login
                     </a> -->
 
-                    <!-- Admin dashboard -->
-                      <!-- @if(Auth()->User()->isAdmin())
-                    <a href="{{ route('admin.dashboard') }}" class="btn btn-outline-light btn-sm me-2">
-                        Dashboard
-                    </a>
-                    @endif -->
 
                     @guest
                         <!-- User Login -->
@@ -85,7 +83,7 @@
                     @endguest
 
                 </div>
-                 @endauth
+                 
             </div>
         </nav>
     @endif
