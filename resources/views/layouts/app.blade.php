@@ -34,9 +34,11 @@
     @if (!in_array(Request::route()->getName(), ['login', 'register']))
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
             <div class="container">
+                @auth
                 @if(auth()->user()->isAdmin())
                 <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Mini Shop</a>
                 @endif
+                @endauth
                 @if(!auth()->user()->isAdmin())
                 <a class="navbar-brand" href="{{ route('shop.index') }}">Mini Shop</a>
                 @endif
