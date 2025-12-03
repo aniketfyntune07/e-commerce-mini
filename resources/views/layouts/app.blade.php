@@ -38,10 +38,11 @@
                 @if(auth()->user()->isAdmin())
                 <a class="navbar-brand" href="{{ route('admin.dashboard') }}">Mini Shop</a>
                 @endif
-                @endauth
+                
                 @if(!auth()->user()->isAdmin())
                 <a class="navbar-brand" href="{{ route('shop.index') }}">Mini Shop</a>
                 @endif
+                 
                 <div class="d-flex align-items-center">
                     @if(!Auth()->User()->isAdmin())
                     <!-- Cart -->
@@ -84,6 +85,7 @@
                     @endguest
 
                 </div>
+                 @endauth
             </div>
         </nav>
     @endif
